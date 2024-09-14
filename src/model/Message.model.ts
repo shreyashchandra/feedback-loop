@@ -6,7 +6,7 @@ export interface Message extends Document{
     createdAt: Date;
 }
 
-const MessageSchema: mongoose.Schema<Message> = new mongoose.Schema({
+export const MessageSchema: mongoose.Schema<Message> = new mongoose.Schema({
     content : {
         type: String,
         required: true
@@ -17,4 +17,5 @@ const MessageSchema: mongoose.Schema<Message> = new mongoose.Schema({
     }
 })
 
-export const MessageModel = mongoose.model<Message>("Message", MessageSchema);
+export const MessageModel = (mongoose.models.Message as mongoose.Model<Message>) || (mongoose.model<Message>("Message", MessageSchema));
+

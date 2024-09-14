@@ -1,5 +1,5 @@
 import mongoose, {Document, Schema} from "mongoose";
-import { Message } from "./Message.model";
+import { Message, MessageSchema } from "./Message.model";
 
 export interface User extends Document{
     username: string;
@@ -12,7 +12,7 @@ export interface User extends Document{
     messages: Message[];
 }
 
-const UserSchema: Schema<User> = new Schema({
+export const UserSchema: Schema<User> = new Schema({
     username : {
         type: String,
         required: true,
@@ -37,16 +37,14 @@ const UserSchema: Schema<User> = new Schema({
     },
     isVerified:{
         type: Boolean,
-        required: true
+        required: true,
+        default: false,
     },
     isAcceptingMessage: {
         type: Boolean,
         required: true
     },
-    messages: [{
-        type: Schema.Types.ObjectId,
-        ref: "Message"
-    }]
+    messages: [MessageSchema]
 })
 
-export const UserModel = mongoose.model<User>("User", UserSchema);
+export const UserModel = (mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>("User", UserSchema));
