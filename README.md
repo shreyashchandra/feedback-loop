@@ -5,5 +5,5 @@
 - [x] DB connection created
 - [x] Signup endpoint created
 - [x] Sending email service created
-- [ ] Setting up next auth
+- [x] Setting up next auth
 - [ ]
